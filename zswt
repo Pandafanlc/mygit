@@ -1,0 +1,69 @@
+#include<stdio.h>   
+#include<stdlib.h>   
+void main()   
+{   
+    int n=0;   
+    int *s;   
+    int k=0,a;   
+    FILE *fp;   
+    fp=fopen("input1.txt","r");   
+    while(1)   
+    {   
+        fscanf(fp,"%d",&a);   
+        if(k==0)   
+        {      
+            n=a;   
+            s=(int *)malloc(n*sizeof(int));   
+            k++;   
+        }   
+        else   
+        {   
+            s[k-1]=a;   
+            k++;   
+            if(k>n)   
+                break;   
+        }   
+    }   
+    fclose(fp);   
+    int f[2]={0};   
+    int c=1,t;   
+    int i,j;   
+    bool flag=false;   
+    for(i=n-1;i>0;i--)   
+    {   
+        for(j=0;j<i;j++)   
+        {   
+            if(s[j]>s[j+1])   
+            {   
+                t=s[j];   
+                s[j]=s[j+1];   
+                s[j+1]=t;   
+                flag=true;   
+            }   
+        }   
+        if(flag)   
+            flag=false;   
+        else   
+            break;   
+   
+    }   
+    for(i=0;i<n;i++)   
+    {   
+        if(s[i+1]==s[i])   
+            c++;   
+        else   
+        {   
+            if(c>f[1])   
+            {   
+                f[0]=s[i];   
+                f[1]=c;   
+            }   
+            c=1;   
+        }   
+    }   
+    printf("%d %d",f[0],f[1]);   
+fp=fopen("output1.txt","w");   
+fprintf(fp,"%d\n%d",f[0],f[1]);   
+fclose(fp);   
+   
+}
